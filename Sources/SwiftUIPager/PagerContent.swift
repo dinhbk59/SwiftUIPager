@@ -151,8 +151,6 @@ extension Pager {
         /// Page index
         @ObservedObject var pagerModel: Page
         
-        var isPageAnimationFinished = true
-
         #if !os(tvOS)
         /// DragGesture state to indicate whether the gesture was interrupted
         @GestureState var isGestureFinished = true
@@ -229,7 +227,7 @@ extension Pager {
                     .onAnimationCompleted(for: CGFloat(pagerModel.index), completion: {
                         // #194 AnimatableModifier symbol not found in iOS 13.0 and iOS 13.1
 
-                        isPageAnimationFinished = true
+                        pagerModel.isPageAnimationFinished = true
                         if pagerModel.pageIncrement != 0 {
                             pagerModel.pageIncrement = 0
                             onPageChanged?(pagerModel.index)
@@ -330,7 +328,7 @@ extension Pager.PagerContent {
     }
 
     func onDragChanged(with value: DragGesture.Value) {
-        guard isPageAnimationFinished else { return }
+        guard self.pagerModel.isPageAnimationFinished else { return }
         let animation = draggingAnimation.animation
         withAnimation(animation) {
             if self.lastDraggingValue == nil {
@@ -398,7 +396,7 @@ extension Pager.PagerContent {
             onPageWillTransition?(.failure(.draggingStopped))
         }
         withAnimation(animation) {
-            self.isPageAnimationFinished = false
+            self.pagerModel.isPageAnimationFinished = false
             self.pagerModel.draggingOffset = 0
             if pageIncrement != 0 {
                 self.pagerModel.pageIncrement = pageIncrement

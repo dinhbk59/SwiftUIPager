@@ -49,6 +49,8 @@ public class Page: ObservableObject {
     /// `swipeGesture` last translation on the X-Axis
     var lastDraggingValue: DragGesture.Value?
     
+    var isPageAnimationFinished = true
+    
     /// `swipeGesture` velocity on the X-Axis
     var draggingVelocity: Double = 0
     
