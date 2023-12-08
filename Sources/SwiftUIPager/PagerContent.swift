@@ -227,7 +227,7 @@ extension Pager {
                     .onAnimationCompleted(for: CGFloat(pagerModel.index), completion: {
                         // #194 AnimatableModifier symbol not found in iOS 13.0 and iOS 13.1
 
-                        pagerModel.isPageAnimationFinished = true
+//                        pagerModel.isPageAnimationFinished = true
                         if pagerModel.pageIncrement != 0 {
                             pagerModel.pageIncrement = 0
                             onPageChanged?(pagerModel.index)
@@ -328,7 +328,7 @@ extension Pager.PagerContent {
     }
 
     func onDragChanged(with value: DragGesture.Value) {
-        guard self.pagerModel.isPageAnimationFinished else { return }
+//        guard self.pagerModel.isPageAnimationFinished else { return }
         let animation = draggingAnimation.animation
         withAnimation(animation) {
             if self.lastDraggingValue == nil {
@@ -396,7 +396,7 @@ extension Pager.PagerContent {
             onPageWillTransition?(.failure(.draggingStopped))
         }
         withAnimation(animation) {
-            self.pagerModel.isPageAnimationFinished = false
+//            self.pagerModel.isPageAnimationFinished = false
             self.pagerModel.draggingOffset = 0
             if pageIncrement != 0 {
                 self.pagerModel.pageIncrement = pageIncrement
